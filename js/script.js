@@ -98,9 +98,12 @@ function createPalette() {
 
 }
 
-function updateProgress() {
+function updateProgress(){
 
-    // Will be added later
+    const percent =
+        ((currentQuestion + 1) / questions.length) * 100;
+
+    progressBar.style.width = percent + "%";
 
 }
 
