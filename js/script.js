@@ -42,17 +42,13 @@ function startExam() {
     const name = document.getElementById("studentName").value.trim();
 
     if (name === "") {
-
         alert("Please enter your full name.");
-
         return;
-
     }
 
     studentInfo.innerHTML = "Candidate: " + name;
 
     startScreen.style.display = "none";
-
     examScreen.style.display = "block";
 
     createPalette();
@@ -63,7 +59,9 @@ function startExam() {
 
     startTimer();
 
-function startTimer(){
+}   // <-- THIS WAS MISSING
+
+function startTimer() {
 
     timer = setInterval(function(){
 
