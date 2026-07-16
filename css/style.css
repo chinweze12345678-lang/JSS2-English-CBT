@@ -109,3 +109,30 @@ button:hover {
         width: 48%;
     }
 }
+.school-info {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.school-info h2 {
+    color: #0056d6;
+    margin-bottom: 10px;
+}
+
+.school-info h3 {
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.exam-details {
+    background: #f5f8ff;
+    border: 1px solid #dbe8ff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.exam-details p {
+    margin: 8px 0;
+}
