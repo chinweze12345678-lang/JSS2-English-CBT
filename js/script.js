@@ -79,9 +79,11 @@ nextBtn.addEventListener("click",()=>{
 
     }else{
 
+    if(confirm("Are you sure you want to submit your exam?")){
         finishExam();
-
     }
+
+}
 
 });
 
@@ -126,6 +128,22 @@ function finishExam(){
 
     });
 
-    alert(`Exam Finished!\n\nScore: ${score}/${questions.length}`);
+    document.body.innerHTML = `
+<div style="max-width:600px;margin:40px auto;text-align:center;font-family:Arial;padding:20px;">
+    <h1>FESBEVERLY HILLS ACADEMY</h1>
 
+    <h2>JSS2 ENGLISH CBT RESULT</h2>
+
+    <h3>Candidate: ${document.getElementById("studentName").value}</h3>
+
+    <h2>${score} / ${questions.length}</h2>
+
+    <h3>${Math.round((score/questions.length)*100)}%</h3>
+
+    <button onclick="location.reload()">
+        Take Exam Again
+    </button>
+
+</div>
+`;
         }
