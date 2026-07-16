@@ -184,7 +184,8 @@ function loadQuestion() {
 
     });
 updatePalette();
-    // Disable Previous on first question
+
+// Disable Previous on first question
 prevBtn.disabled = currentQuestion === 0;
 
 // Change Next button on last question
@@ -193,8 +194,8 @@ if(currentQuestion === questions.length - 1){
 }else{
     nextBtn.innerHTML = "Next";
 }
-}
 
+}
 // =========================
 // SAVE ANSWER
 // =========================
