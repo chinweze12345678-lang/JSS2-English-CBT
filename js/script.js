@@ -1,9 +1,4 @@
 let currentQuestion = 0;
-// =========================
-// CBT ENGINE V2.0
-// =========================
-
-let currentQuestion = 0;
 let answers = [];
 let score = 0;
 
@@ -68,9 +63,6 @@ function startExam() {
 
     startTimer();
 
-}
-    loadQuestion();
-}
 function startTimer(){
 
     timer = setInterval(function(){
