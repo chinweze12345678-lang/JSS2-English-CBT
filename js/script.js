@@ -23,8 +23,17 @@ const optionsDiv = document.getElementById("options");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-const submitBtn = document.getElementById("submitBtn");
+submitBtn.addEventListener("click", () => {
 
+    saveAnswer();
+
+    if(confirm("Are you sure you want to submit your examination?")){
+
+        finishExam();
+
+    }
+
+});
 const timerDisplay = document.getElementById("timer");
 
 const progressBar = document.getElementById("progress-bar");
