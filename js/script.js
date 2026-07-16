@@ -87,6 +87,13 @@ function startTimer() {
     },1000);
 
 }
+function createPalette(){
+
+}
+
+function updateProgress(){
+
+}
 function loadQuestion(){
 
     const q = questions[currentQuestion];
