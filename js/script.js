@@ -184,6 +184,15 @@ function loadQuestion() {
 
     });
 updatePalette();
+    // Disable Previous on first question
+prevBtn.disabled = currentQuestion === 0;
+
+// Change Next button on last question
+if(currentQuestion === questions.length - 1){
+    nextBtn.innerHTML = "Finish";
+}else{
+    nextBtn.innerHTML = "Next";
+}
 }
 
 // =========================
