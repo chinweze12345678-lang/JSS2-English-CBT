@@ -1,12 +1,26 @@
 let currentQuestion = 0;
-let score = 0;
+// =========================
+// CBT ENGINE V2.0
+// =========================
+
+let currentQuestion = 0;
 let answers = [];
+let score = 0;
+
+let timeLeft = 40 * 60; // 40 minutes
+
+let timer;
+
+// =========================
+// HTML ELEMENTS
+// =========================
 
 const startBtn = document.getElementById("startBtn");
 const startScreen = document.getElementById("start-screen");
 const examScreen = document.getElementById("exam-screen");
 
 const studentInfo = document.getElementById("studentInfo");
+
 const questionNumber = document.getElementById("question-number");
 const questionText = document.getElementById("question");
 const optionsDiv = document.getElementById("options");
@@ -14,26 +28,75 @@ const optionsDiv = document.getElementById("options");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
+const submitBtn = document.getElementById("submitBtn");
+
+const timerDisplay = document.getElementById("timer");
+
+const progressBar = document.getElementById("progress-bar");
+
+const palette = document.getElementById("palette");
+
+// =========================
+// START BUTTON
+// =========================
+
 startBtn.addEventListener("click", startExam);
 
 function startExam() {
 
-    const name = document.getElementById("studentName").value;
-    const studentClass = document.getElementById("studentClass").value;
+    const name = document.getElementById("studentName").value.trim();
 
-    if(name === "" || studentClass === ""){
-        alert("Please enter your Name and Class.");
+    if (name === "") {
+
+        alert("Please enter your full name.");
+
         return;
+
     }
 
-    studentInfo.innerHTML = `${name} | ${studentClass}`;
+    studentInfo.innerHTML = "Candidate: " + name;
 
     startScreen.style.display = "none";
+
     examScreen.style.display = "block";
 
+    createPalette();
+
+    loadQuestion();
+
+    updateProgress();
+
+    startTimer();
+
+}
     loadQuestion();
 }
+function startTimer(){
 
+    timer = setInterval(function(){
+
+        let minutes = Math.floor(timeLeft / 60);
+
+        let seconds = timeLeft % 60;
+
+        timerDisplay.innerHTML =
+            `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+        timeLeft--;
+
+        if(timeLeft < 0){
+
+            clearInterval(timer);
+
+            alert("Time is up!");
+
+            finishExam();
+
+        }
+
+    },1000);
+
+}
 function loadQuestion(){
 
     const q = questions[currentQuestion];
