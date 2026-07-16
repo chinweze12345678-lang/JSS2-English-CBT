@@ -182,7 +182,15 @@ function loadQuestion() {
 
         optionsDiv.appendChild(label);
 
-    });
+const radio = label.querySelector("input");
+
+radio.addEventListener("change", function(){
+
+    answers[currentQuestion] = index;
+
+    updatePalette();
+
+});
 updatePalette();
 
 // Disable Previous on first question
