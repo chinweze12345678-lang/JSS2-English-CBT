@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSS1 English CBT</title>
+    <title>FESBEVERLY HILLS ACADEMY CBT</title>
 
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -11,69 +11,94 @@
 
 <div class="container">
 
-    <h1>JSS2 ENGLISH LANGUAGE CBT</h1>
+    <!-- LOGIN PAGE -->
+    <div id="start-screen">
 
-    <div class="school-info">
-    <h2>FESBEVERLY HILLS ACADEMY</h2>
-    <h3>COMPUTER-BASED TEST (CBT)</h3>
-</div>
+        <h1>FESBEVERLY HILLS ACADEMY</h1>
 
-<div class="exam-details">
-    <p><strong>Subject:</strong> English Language</p>
-    <p><strong>Class:</strong> JSS2</p>
-    <p><strong>Duration:</strong> 40 Minutes</p>
-    <p><strong>Total Questions:</strong> 50</p>
-</div>
-<p>Please enter your name before starting the examination.</p>
+        <h2>JSS2 ENGLISH LANGUAGE CBT</h2>
+
+        <div class="exam-info">
+
+            <p><strong>Duration:</strong> 40 Minutes</p>
+
+            <p><strong>Total Questions:</strong> 50</p>
+
+            <p>
+                Enter your full name before starting the examination.
+            </p>
+
+        </div>
+
         <input
             type="text"
             id="studentName"
-            placeholder="Enter Your Name">
-
-        <input
-            type="text"
-            id="studentClass"
-            placeholder="Enter Your Class">
+            placeholder="Enter Your Full Name">
 
         <button id="startBtn">
-            Start Examination
+            START EXAMINATION
         </button>
 
     </div>
 
+    <!-- EXAM PAGE -->
+
     <div id="exam-screen" style="display:none;">
 
         <div class="top-bar">
-            <h3 id="studentInfo"></h3>
+
+            <div id="studentInfo"></div>
 
             <div id="timer">
-    Time Remaining: <span id="time">40:00</span>
-</div>
+                40:00
+            </div>
+
         </div>
 
-        <h2 id="question-number"></h2>
+        <div class="progress">
 
-        <h3 id="question"></h3>
+            <div id="progress-bar"></div>
+
+        </div>
+
+        <h3 id="question-number"></h3>
+
+        <h2 id="question"></h2>
 
         <div id="options"></div>
 
-        <div class="buttons">
+        <div class="navigation">
 
             <button id="prevBtn">
+
                 Previous
+
             </button>
 
             <button id="nextBtn">
+
                 Next
+
             </button>
 
         </div>
+
+        <div id="palette">
+
+        </div>
+
+        <button id="submitBtn">
+
+            Submit Examination
+
+        </button>
 
     </div>
 
 </div>
 
 <script src="js/questions.js"></script>
+
 <script src="js/script.js"></script>
 
 </body>
