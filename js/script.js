@@ -92,18 +92,60 @@ function startTimer() {
 // PLACEHOLDERS
 // =========================
 
-function createPalette() {
+function createPalette(){
 
-    // Will be added later
+    palette.innerHTML = "";
+
+    for(let i = 0; i < questions.length; i++){
+
+        const btn = document.createElement("button");
+
+        btn.innerHTML = i + 1;
+
+        btn.className = "palette-btn";
+
+        btn.onclick = function(){
+
+            saveAnswer();
+
+            currentQuestion = i;
+
+            loadQuestion();
+
+            updateProgress();
+
+            updatePalette();
+
+        };
+
+        palette.appendChild(btn);
+
+    }
 
 }
 
-function updateProgress(){
+function updatePalette(){
 
-    const percent =
-        ((currentQuestion + 1) / questions.length) * 100;
+    const buttons = palette.querySelectorAll("button");
 
-    progressBar.style.width = percent + "%";
+    buttons.forEach((btn, index)=>{
+
+        btn.classList.remove("answered");
+        btn.classList.remove("current");
+
+        if(answers[index] !== undefined){
+
+            btn.classList.add("answered");
+
+        }
+
+        if(index === currentQuestion){
+
+            btn.classList.add("current");
+
+        }
+
+    });
 
 }
 
@@ -141,7 +183,7 @@ function loadQuestion() {
         optionsDiv.appendChild(label);
 
     });
-
+updatePalette();
 }
 
 // =========================
