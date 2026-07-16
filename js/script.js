@@ -1,13 +1,13 @@
-// =========================
-// CBT ENGINE V2.0
-// =========================
+// ======================================
+// CBT ENGINE V3.0
+// ======================================
 
 let currentQuestion = 0;
 let answers = [];
 let score = 0;
 
-let timeLeft = 40 * 60; // 40 minutes
-let timer;
+let timeLeft = 40 * 60;
+let timer = null;
 
 // =========================
 // HTML ELEMENTS
@@ -54,6 +54,8 @@ function startExam() {
     createPalette();
     loadQuestion();
     updateProgress();
+    updatePalette();
+
     startTimer();
 
 }
@@ -64,17 +66,15 @@ function startExam() {
 
 function startTimer() {
 
-    timer = setInterval(function () {
+    updateTimer();
 
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-
-        timerDisplay.innerHTML =
-            `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    timer = setInterval(() => {
 
         timeLeft--;
 
-        if (timeLeft < 0) {
+        updateTimer();
+
+        if (timeLeft <= 0) {
 
             clearInterval(timer);
 
@@ -88,64 +88,13 @@ function startTimer() {
 
 }
 
-// =========================
-// PLACEHOLDERS
-// =========================
+function updateTimer() {
 
-function createPalette(){
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
 
-    palette.innerHTML = "";
-
-    for(let i = 0; i < questions.length; i++){
-
-        const btn = document.createElement("button");
-
-        btn.innerHTML = i + 1;
-
-        btn.className = "palette-btn";
-
-        btn.onclick = function(){
-
-            saveAnswer();
-
-            currentQuestion = i;
-
-            loadQuestion();
-
-            updateProgress();
-
-            updatePalette();
-
-        };
-
-        palette.appendChild(btn);
-
-    }
-
-}
-
-function updatePalette(){
-
-    const buttons = palette.querySelectorAll("button");
-
-    buttons.forEach((btn, index)=>{
-
-        btn.classList.remove("answered");
-        btn.classList.remove("current");
-
-        if(answers[index] !== undefined){
-
-            btn.classList.add("answered");
-
-        }
-
-        if(index === currentQuestion){
-
-            btn.classList.add("current");
-
-        }
-
-    });
+    timerDisplay.innerHTML =
+        `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 
 }
 
@@ -171,39 +120,24 @@ function loadQuestion() {
         label.className = "option";
 
         label.innerHTML = `
-            <input
-                type="radio"
-                name="option"
-                value="${index}"
-                ${answers[currentQuestion] == index ? "checked" : ""}
-            >
-            ${option}
+        <input
+            type="radio"
+            name="option"
+            value="${index}"
+            ${answers[currentQuestion] === index ? "checked" : ""}
+        >
+        ${option}
         `;
 
         optionsDiv.appendChild(label);
 
-const radio = label.querySelector("input");
+    });
 
-radio.addEventListener("change", function(){
-
-    answers[currentQuestion] = index;
-
+    updateProgress();
     updatePalette();
 
-});
-updatePalette();
-
-// Disable Previous on first question
-prevBtn.disabled = currentQuestion === 0;
-
-// Change Next button on last question
-if(currentQuestion === questions.length - 1){
-    nextBtn.innerHTML = "Finish";
-}else{
-    nextBtn.innerHTML = "Next";
 }
 
-}
 // =========================
 // SAVE ANSWER
 // =========================
@@ -222,7 +156,76 @@ function saveAnswer() {
 }
 
 // =========================
-// NEXT BUTTON
+// PROGRESS BAR
+// =========================
+
+function updateProgress() {
+
+    const percent =
+        ((currentQuestion + 1) / questions.length) * 100;
+
+    progressBar.style.width = percent + "%";
+
+}
+
+// =========================
+// QUESTION PALETTE
+// =========================
+
+function createPalette() {
+
+    palette.innerHTML = "";
+
+    for (let i = 0; i < questions.length; i++) {
+
+        const btn = document.createElement("button");
+
+        btn.innerHTML = i + 1;
+
+        btn.className = "palette-btn";
+
+        btn.onclick = function () {
+
+            saveAnswer();
+
+            currentQuestion = i;
+
+            loadQuestion();
+
+        };
+
+        palette.appendChild(btn);
+
+    }
+
+}
+
+function updatePalette() {
+
+    const buttons = palette.querySelectorAll("button");
+
+    buttons.forEach((btn, index) => {
+
+        btn.className = "palette-btn";
+
+        if (answers[index] !== undefined) {
+
+            btn.classList.add("answered");
+
+        }
+
+        if (index === currentQuestion) {
+
+            btn.classList.add("current");
+
+        }
+
+    });
+
+}
+
+// =========================
+// NEXT
 // =========================
 
 nextBtn.addEventListener("click", () => {
@@ -235,11 +238,9 @@ nextBtn.addEventListener("click", () => {
 
         loadQuestion();
 
-        updateProgress();
-
     } else {
 
-        if (confirm("Are you sure you want to submit your examination?")) {
+        if (confirm("Submit examination?")) {
 
             finishExam();
 
@@ -250,7 +251,7 @@ nextBtn.addEventListener("click", () => {
 });
 
 // =========================
-// PREVIOUS BUTTON
+// PREVIOUS
 // =========================
 
 prevBtn.addEventListener("click", () => {
@@ -263,21 +264,19 @@ prevBtn.addEventListener("click", () => {
 
         loadQuestion();
 
-        updateProgress();
-
     }
 
 });
 
 // =========================
-// SUBMIT BUTTON
+// SUBMIT
 // =========================
 
 submitBtn.addEventListener("click", () => {
 
     saveAnswer();
 
-    if (confirm("Are you sure you want to submit your examination?")) {
+    if (confirm("Are you sure you want to submit?")) {
 
         finishExam();
 
@@ -305,24 +304,33 @@ function finishExam() {
 
     });
 
+    const percentage =
+        Math.round((score / questions.length) * 100);
+
     document.body.innerHTML = `
-<div style="max-width:600px;margin:40px auto;text-align:center;font-family:Arial;padding:20px;">
+
+<div style="max-width:700px;margin:40px auto;padding:25px;text-align:center;font-family:Arial;">
 
 <h1>FESBEVERLY HILLS ACADEMY</h1>
 
 <h2>JSS2 ENGLISH LANGUAGE CBT RESULT</h2>
 
-<h3>Candidate: ${document.getElementById("studentName").value}</h3>
+<hr>
 
-<h2>Score: ${score} / ${questions.length}</h2>
+<h3>Candidate</h3>
 
-<h3>Percentage: ${Math.round((score / questions.length) * 100)}%</h3>
+<p>${document.getElementById("studentName").value}</p>
+
+<h2>${score} / ${questions.length}</h2>
+
+<h2>${percentage}%</h2>
 
 <button onclick="location.reload()">
 Take Examination Again
 </button>
 
 </div>
+
 `;
 
 }
