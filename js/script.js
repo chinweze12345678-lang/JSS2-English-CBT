@@ -96,10 +96,15 @@ function updateProgress(){
 }
 function loadQuestion(){
 
+    alert("loadQuestion() is running");
+
     const q = questions[currentQuestion];
 
     questionNumber.innerHTML =
         `Question ${currentQuestion + 1} of ${questions.length}`;
+
+    ...
+}
 
     questionText.innerHTML = q.question;
 
