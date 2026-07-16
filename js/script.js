@@ -1,4 +1,4 @@
-// ======================================
+2// ======================================
 // CBT ENGINE V3.0
 // ======================================
 
@@ -66,15 +66,19 @@ function startExam() {
 
 function startTimer() {
 
+    console.log("Timer started");
+
     updateTimer();
 
-    timer = setInterval(() => {
+    timer = setInterval(function(){
+
+        console.log("Tick", timeLeft);
 
         timeLeft--;
 
         updateTimer();
 
-        if (timeLeft <= 0) {
+        if(timeLeft <= 0){
 
             clearInterval(timer);
 
@@ -84,7 +88,7 @@ function startTimer() {
 
         }
 
-    }, 1000);
+    },1000);
 
 }
 
